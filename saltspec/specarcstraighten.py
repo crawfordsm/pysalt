@@ -164,7 +164,9 @@ def arcstraight(data, xarr, istart, ws=None, function='poly', order=3,
     ws = WavelengthSolution.WavelengthSolution(xarr, xarr, function, order)
     ws.fit()
     ImageSolution[istart] = ws
-    if dcoef is not None: ws.coef = dcoef
+    if dcoef is not None: 
+        if len(dcoef) > order+1: raise TypeError('dcoef is not of order {}'.format(order))
+        ws.coef = dcoef
 
     data = nd.gaussian_filter(data, 3)
 
